@@ -9,10 +9,11 @@ Gem::Specification.new do |s|
   s.name        = 'bsod'
   s.version     = BSOD::VERSION
   s.summary     = "Simulates a Blue Screen Of Death"
-  s.date        = "#{Date.today.year}-#{Date.today.month}-#{Date.today.day}"
+  s.date        = Date.today.to_s
   s.description = <<END_OF_DESCRIPTION
 Simulates a Blue Screen Of Death, as seen on Micro$oftWindow$.
-As an executable, has optional flag to sleep before BSODing so you can surprise your friends!
+As an executable, has optional flag to sleep before BSODing so
+you can surprise your friends!
 As a library, you can integrate a BSOD on any SDL surface.
 END_OF_DESCRIPTION
   s.authors     = ["Alexandre Dantas"]
@@ -25,8 +26,13 @@ END_OF_DESCRIPTION
   s.executables = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.metadata = { 'github' => 'http://www.github.com/alexdantas/bsod' }
-
   s.add_development_dependency "rake"
+  s.add_dependency "rubysdl", "~> 2.1.2"
+
+  s.post_install_message = <<END_OF_INSTALL_MESSAGE
+* To exit the BSOD press `F8`
+END_OF_INSTALL_MESSAGE
+
+  s.metadata = { 'github' => 'http://www.github.com/alexdantas/bsod' }
 end
 
