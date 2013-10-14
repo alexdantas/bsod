@@ -1,6 +1,6 @@
-# bsdod
+# bsod
 
-Simulates a Blue Screen of Death, as seen on Micro$oftWindow$.
+Simulates a [Blue Screen of Death](https://en.wikipedia.org/wiki/Blue_screen_of_death), as seen on Micro$oftWindow$.
 
 As an executable, has optional flag to sleep before BSODing so you can surprise
 your friends!

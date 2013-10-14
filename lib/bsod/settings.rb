@@ -81,6 +81,8 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+The Droid Sans font family is licensed under the Apache license.
 END_OF_VERSION
         exit
       end
