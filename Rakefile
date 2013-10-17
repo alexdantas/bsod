@@ -15,3 +15,8 @@ task :release => :build do
   system "gem push bsod-#{BSOD::VERSION}.gem"
 end
 
+desc "Executes the program"
+task :run do |args, a|
+  system "ruby -Ilib bin/bsod"
+end
+

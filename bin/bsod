@@ -1,19 +1,38 @@
 #!/usr/bin/env ruby
+#
+# Attempts to simulate a Blue Screen of Death (BSOD),
+# optionally with a delay before (in seconds).
+#
+# Make sure you have both the `rubysdl` gem and `SDL`/`SDL_TTF`
+# libraries on your system.
 
 require 'bsod'
 require 'bsod/settings'
+require 'bsod/windows'
+require 'bsod/windowsxp'
 
 # Global configuration thingy. See `settings.rb`.
 $settings = nil
 
-# Starts all things related to SDL for this program to work.
+# Starts all things related to `SDL` for BSODs to work.
+# Returns `SDL`s main drawing screen.
 #
-# Returns SDL's main drawing screen.
-def sdl_init
+# Note: This method is only required if you don't do
+#       this manually. For most of your custom projects,
+#       ignore this.
+# Note: This initializes `SDL` based on the global
+#       `$settings` parsed by `Settings` module.
+#
+def self.init_sdl
   SDL::init(SDL::INIT_VIDEO)
   SDL::TTF.init
-  SDL::Mouse.hide
 
+  if not BSOD::sdl_inited?
+    puts "Error: SDL Video or SDL::TTF not initialized."
+    exit 666
+  end
+
+  SDL::Mouse.hide
   screen = nil
 
   if $settings[:fullscreen]
@@ -38,8 +57,22 @@ begin
   time = $settings[:sleep_time]
   sleep time if time
 
-  screen = sdl_init
-  BSOD::run(screen, screen.w, screen.h)
+  screen = init_sdl
+
+  bsod = nil
+  case $settings[:bsod_type]
+  when "windows"
+    bsod = BSOD::Windows.new
+  when "windowsxp"
+    bsod = BSOD::WindowsXP.new
+  when "windows7"
+    bsod = BSOD::Windows7.new
+  when "windows8"
+    bsod = BSOD::Windows8.new
+  end
+
+  bsod.draw(screen, screen.w, screen.h)
+  BSOD::wait_for_sdl_key $settings[:exit_key]
 
   # It automatically ends SDL on exit
 end

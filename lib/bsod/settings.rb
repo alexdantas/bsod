@@ -15,6 +15,9 @@ class Settings
     # Makes possible to sleep for a while before BSODing
     @settings[:sleep_time] = nil
 
+    # Which BSOD we'll show by default?
+    @settings[:bsod_type] = "windows"
+
     # This doesn't matter because it will go fullscreen anyways.
     # Just change it if looks ugly
     @settings[:width]  = 800
@@ -51,8 +54,21 @@ class Settings
         @settings[:sleep_time] = n.to_f
       end
 
+      parser.on("-t", "--type TYPE", "Select the BSOD type to show. To see all options use `--list`. ") do |type|
+        @settings[:bsod_type] = type.to_s
+      end
+
       parser.on("--[no-]fullscreen", "Runs on fullscreen mode (default on)") do |f|
         @settings[:fullscreen] = f
+      end
+
+      parser.on("-l", "--list", "Show all possible BSODs") do
+        puts "Usage: bsod -t [type]"
+        puts "where [type] can be:"
+        puts
+        puts "windows         Generic Window$ BSOD"
+        puts "windowsxp       As seen on Window$ XP"
+        exit
       end
 
       # These options appear if no other is given.
