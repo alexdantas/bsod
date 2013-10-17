@@ -3,10 +3,8 @@ require 'bsod'
 
 module BSOD
 
-  # A general BSOD for Windows.
-  # (lies, I couldn't figure out which Windows version associates
-  #  with this BSOD)
-  class Windows
+  # Ye olde Window$ NT.
+  class WindowsNT
 
     # The default white text that will appear over the
     # blue background.

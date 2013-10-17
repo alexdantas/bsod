@@ -1,45 +1,44 @@
 
 require 'bsod'
-require 'bsod/windowsnt'
 
 module BSOD
 
-  # As seen on Window$ XP.
+  # Remember Window$ 2000?
   #
   # This is the same as WindowsNT, the only thing that
   # changes is the default message.
-  class WindowsXP
+  class Windows2000 < WindowsNT
 
-    # The default white text that will appear over the
-    # blue background.
     BSODTEXT = <<END_OF_TEXT
-A problem has been detected and windows has been shut down to prvent damage
+A problem has been detected and windows has been shut down to prevent damage
 to your computer.
-
-The problem seems to be caused by the following file: SPCMDCON.SYS
-
-PAGE_FAULT_IN_NONPAGED_AREA
 
 If this is the first time you've seen this stop error screen,
 restart your computer. If this screen appears again, follow
 these steps:
 
-Check to make sure any new hardware or software is properly installed.
-If this is a new installation, ask your hardware or software manufacturer
-for any windows updates you might need.
+Check to be sure you have adequate disk space. If a driver is
+identified in the Stop message, disable the driver or check
+with the manufacturer for driver updates. Try changing video
+adapters.
 
-If problems continue, disable or remove any newly installed hardware
-or software. Disable BIOS memory options such as caching or shadowing.
-If you need to use Safe Mode to remove or disable components, restart
-your computer, press F8 to select Advanced Startup Options, and then
+Check with your hardware vendor for any BIOS updates. Disable
+BIOS memory options such as caching or shadowing. If you need
+to use Safe Mode to remove or disable components, restart your
+computer, press F8 to select Advanced Startup Options, and then
 select Safe Mode.
 
 Technical information:
 
-*** STOP: 0x00000050 (0xFD3094C2,0x00000001,0xFBFE7617,0x00000000)
+*** STOP: 0x0000007E (0xC0000005,0xF88FF190,0x0xF8975BA0,0xF89758A0)
 
 
-*** SPCMDCON.SYS - Address FBFE7617 base at FBFE5000, DateStamp 3d6dd67c
+***  EPUSBDSK.sys - Address F88FF190 base at FF88FE000, datestamp 3b9f3248
+
+Beginning dump of physical memory
+Physical memory dump complete.
+Contact your system administrator or technical support group for further
+assistance.
 END_OF_TEXT
 
     # No `def initialize` on purpose

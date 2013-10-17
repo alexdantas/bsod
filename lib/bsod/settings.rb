@@ -16,7 +16,7 @@ class Settings
     @settings[:sleep_time] = nil
 
     # Which BSOD we'll show by default?
-    @settings[:bsod_type] = "windows"
+    @settings[:bsod_type] = "windowsnt"
 
     # This doesn't matter because it will go fullscreen anyways.
     # Just change it if looks ugly
@@ -62,12 +62,17 @@ class Settings
         @settings[:fullscreen] = f
       end
 
+      # parser.on("-r", "--random", "Select a random BSOD") do
+      # DO SOMETHING ABOUT IT
+      # end
+
       parser.on("-l", "--list", "Show all possible BSODs") do
         puts "Usage: bsod -t [type]"
-        puts "where [type] can be:"
+        puts "       where [type] can be:"
         puts
-        puts "windows         Generic Window$ BSOD"
-        puts "windowsxp       As seen on Window$ XP"
+        puts "windowsnt [default]  Ye olde Window$ NT"
+        puts "windows2000          Remember Window$ 2000?"
+        puts "windowsxp            As seen on Window$ XP"
         exit
       end
 

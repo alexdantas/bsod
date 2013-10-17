@@ -8,7 +8,8 @@
 
 require 'bsod'
 require 'bsod/settings'
-require 'bsod/windows'
+require 'bsod/windowsnt'
+require 'bsod/windows2000'
 require 'bsod/windowsxp'
 
 # Global configuration thingy. See `settings.rb`.
@@ -61,14 +62,14 @@ begin
 
   bsod = nil
   case $settings[:bsod_type]
-  when "windows"
-    bsod = BSOD::Windows.new
-  when "windowsxp"
-    bsod = BSOD::WindowsXP.new
-  when "windows7"
-    bsod = BSOD::Windows7.new
-  when "windows8"
-    bsod = BSOD::Windows8.new
+  when "windowsnt"   then bsod = BSOD::WindowsNT.new
+  when "windows2000" then bsod = BSOD::Windows2000.new
+  when "windowsxp"   then bsod = BSOD::WindowsXP.new
+
+  # when "windows7"
+  #   bsod = BSOD::Windows7.new
+  # when "windows8"
+  #   bsod = BSOD::Windows8.new
   end
 
   bsod.draw(screen, screen.w, screen.h)
