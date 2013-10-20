@@ -1,9 +1,9 @@
 
-require 'bsod/version'
-
 # Adding lib directory to load path
 lib = File.expand_path('../lib', __FILE__)
 $:.unshift lib unless $:.include? lib
+
+require 'bsod/version'
 
 desc "Builds the gem"
 task :build do
@@ -19,4 +19,3 @@ desc "Executes the program"
 task :run do |args, a|
   system "ruby -Ilib bin/bsod"
 end
-
