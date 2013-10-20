@@ -7,38 +7,27 @@ module BSOD
   #
   # This is the same as WindowsNT, the only thing that
   # changes is the default message.
-  class Windows2000
+  class LinuxSPARC
 
     BSODTEXT = <<END_OF_TEXT
-A problem has been detected and windows has been shut down to prevent damage
-to your computer.
-
-If this is the first time you've seen this stop error screen,
-restart your computer. If this screen appears again, follow
-these steps:
-
-Check to be sure you have adequate disk space. If a driver is
-identified in the Stop message, disable the driver or check
-with the manufacturer for driver updates. Try changing video
-adapters.
-
-Check with your hardware vendor for any BIOS updates. Disable
-BIOS memory options such as caching or shadowing. If you need
-to use Safe Mode to remove or disable components, restart your
-computer, press F8 to select Advanced Startup Options, and then
-select Safe Mode.
-
-Technical information:
-
-*** STOP: 0x0000007E (0xC0000005,0xF88FF190,0x0xF8975BA0,0xF89758A0)
-
-
-***  EPUSBDSK.sys - Address F88FF190 base at FF88FE000, datestamp 3b9f3248
-
-Beginning dump of physical memory
-Physical memory dump complete.
-Contact your system administrator or technical support group for further
-assistance.
+Unable to handle kernel paging request at virtual address f0d4a000
+tsk->mm->context = 00000014
+tsk->mm->pgd = f26b0000
+              \\|/ ____ \\|/
+              "@'/ ,. \\`@"
+              /_| \\__/ |_\\
+                 \\__U_/
+gawk(22827): Oops
+PSR: 044010c1 PC: f001c2cc NPC: f001c2d0 Y: 00000000
+g0: 00001000 g1: ad88208a g2: 589528c3 g3: 4c4eaf60
+g4: f8e9a052 g5: a8fa48c3 g6: 93eeb38e g7: ea90911f
+o0: 6814da2c o1: bcbc439b o2: fbee7b93 o3: 5c92e715
+o4: f4e435d8 o5: c0d794ce sp: 187d9d04 ret_pc: 5766da46
+l0: 3623c157 l1: 8dacaddb l2: e2fb0bcb l3: 61058d7c
+l4: c0e26c5b l5: baf25f79 l6: 9ad3e338 l7: c80f287b
+i0: a5487db7 i1: 2a510244 i2: 90803a7c i3: bfb8cf31
+i4: d0157ffe i5: 54647960 i6: bac6c329 i7: 2b5b54ed
+Instruction DUMP:
 END_OF_TEXT
 
     # No `def initialize` on purpose
@@ -53,17 +42,19 @@ END_OF_TEXT
       # Should I break the program's flow here?
       BSOD::init_sdl if not BSOD::sdl_inited?
 
-      # Filling screen with that sweet, sweet blue tone
-      blue = screen.format.map_rgb(0, 0, 255)
-      screen.fill_rect(0, 0, width, height, blue)
+      black = screen.format.map_rgb(0, 0, 0)
+      screen.fill_rect(0, 0, width, height, black)
 
       # Printing that bizarre text
       font = SDL::TTF.open($settings[:font_filename],
-                           $settings[:font_size])
+                           $settings[:font_size] - 2)
 
       font.style = SDL::TTF::STYLE_BOLD if $settings[:font_bold]
 
-      i = 0
+      # need to print at the bottom of the screen
+      lines_ammount = height / font.height
+
+      i = (lines_ammount - BSODTEXT.lines.size)
       BSODTEXT.each_line do |line|
         # This is a little hack to allow printing empty lines.
         # First I remove the '\n' at the end to avoid nasty things

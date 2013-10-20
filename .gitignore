@@ -1,3 +1,7 @@
 *.ttf
 *.txt
 *.gem
+
+# I'm saving them for historical reasons
+old-gems
+

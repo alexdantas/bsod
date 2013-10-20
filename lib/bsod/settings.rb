@@ -28,10 +28,10 @@ class Settings
     @settings[:exit_key] = SDL::Key::F8
 
     # This is the default font, distributed with the gem.
-    # It's `../../droidsansmono.ttf` based on `settings.rb` path.
+    # It's `../../fonts/droidsansmono.ttf` based on `settings.rb` path.
     fontname = File.expand_path("../../", __FILE__)
     fontname = File.dirname fontname
-    fontname += "/droidsansmono.ttf"
+    fontname += "/fonts/droidsansmono.ttf"
     @settings[:font_filename] = fontname
     @settings[:font_size] = 14
     @settings[:font_bold] = false
@@ -50,11 +50,11 @@ class Settings
       parser.separator ""
       parser.separator "Options:"
 
-      parser.on("-s", "--sleep N", "Sleep N (float) seconds before BSODing") do |n|
+      parser.on("-w", "--wait N", "Waits N (float) seconds before BSODing") do |n|
         @settings[:sleep_time] = n.to_f
       end
 
-      parser.on("-t", "--type TYPE", "Select the BSOD type to show. To see all options use `--list`. ") do |type|
+      parser.on("-s", "--style STYLE", "Select the BSOD style to show. To see all options use `--list`. ") do |type|
         @settings[:bsod_type] = type.to_s
       end
 
@@ -70,9 +70,10 @@ class Settings
         puts "Usage: bsod -t [type]"
         puts "       where [type] can be:"
         puts
-        puts "windowsnt [default]  Ye olde Window$ NT"
-        puts "windows2000          Remember Window$ 2000?"
-        puts "windowsxp            As seen on Window$ XP"
+        puts "windowsnt [default]"
+        puts "windows2000"
+        puts "windowsxp"
+        puts "linux-sparc"
         exit
       end
 

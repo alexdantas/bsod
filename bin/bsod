@@ -11,6 +11,7 @@ require 'bsod/settings'
 require 'bsod/windowsnt'
 require 'bsod/windows2000'
 require 'bsod/windowsxp'
+require 'bsod/linux-sparc'
 
 # Global configuration thingy. See `settings.rb`.
 $settings = nil
@@ -65,11 +66,7 @@ begin
   when "windowsnt"   then bsod = BSOD::WindowsNT.new
   when "windows2000" then bsod = BSOD::Windows2000.new
   when "windowsxp"   then bsod = BSOD::WindowsXP.new
-
-  # when "windows7"
-  #   bsod = BSOD::Windows7.new
-  # when "windows8"
-  #   bsod = BSOD::Windows8.new
+  when "linux-sparc" then bsod = BSOD::LinuxSPARC.new
   end
 
   bsod.draw(screen, screen.w, screen.h)
